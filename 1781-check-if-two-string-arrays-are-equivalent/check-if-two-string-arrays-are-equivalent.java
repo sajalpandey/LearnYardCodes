@@ -5,21 +5,19 @@ class Solution {
         while(oIdx1<word1.length && oIdx2<word2.length) {
             if(word1[oIdx1].charAt(inX)!=word2[oIdx2].charAt(inY))
                 return false;
-            if(inX < word1[oIdx1].length())
-                inX++;
-            if(inY < word2[oIdx2].length())
-                inY++;
-            if(inX == word1[oIdx1].length()){
+
+            if(inX == word1[oIdx1].length()-1){
                 inX = 0;
                 oIdx1++;
-            }
-            if(inY == word2[oIdx2].length()){
+            } else
+                inX++;
+            if(inY == word2[oIdx2].length()-1){
                 inY = 0;
                 oIdx2++;
-            }
+            } else
+                inY++;
         }
-        if(oIdx1 == word1.length && oIdx2 ==word2.length)
-            return true;
-        return false;
+        return (oIdx1 == word1.length && oIdx2 ==word2.length);
+
     }
 }
