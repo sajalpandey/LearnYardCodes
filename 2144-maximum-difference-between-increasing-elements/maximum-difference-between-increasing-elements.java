@@ -4,10 +4,9 @@ class Solution {
         int i=0,j=1;
         int mx = nums[0];
         while(j<nums.length) {
-            if(nums[j]!=mx)
-                mx_so_far = Math.max(mx_so_far,nums[j]-mx);
+            mx_so_far = Math.max(mx_so_far,nums[j]-mx);
             mx = Math.min(mx,nums[j++]);
         }
-        return mx_so_far;
+        return (mx_so_far==0 ? -1 : mx_so_far);
     }
 }
