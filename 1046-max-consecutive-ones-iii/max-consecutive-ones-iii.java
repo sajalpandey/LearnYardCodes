@@ -8,13 +8,11 @@ class Solution {
                 len++;
                 j++;
                 mx_len = Math.max(mx_len, len);
-            } else if(nums[j]==0) {
+            } else {
                 if(p==0) {
-                    if(nums[i]==0) {
-                        i++;
+                    if(nums[i]==0) 
                         p++;
-                    } else 
-                        i++;
+                    i++;
                     len--;
                 } else {
                     p--;
