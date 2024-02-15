@@ -12,16 +12,13 @@ class Solution {
                     prefix[shifts[i][1]+1]++;
             }
         }
-        for(int i=1; i<prefix.length; i++)
-            prefix[i] += prefix[i-1];
+        int sum = 0;
         StringBuilder result = new StringBuilder();
         for(int i=0; i<s.length(); i++) {
-            //System.out.println(prefix[i] );
-            int ascii = (s.charAt(i)-'a'+prefix[i])%26;
+            sum += prefix[i];
+            int ascii = (s.charAt(i)-'a'+sum)%26;
             if(ascii < 0)
                 ascii += 26;
-            //System.out.println(ascii);
-            //System.out.println(ascii);
             result.append((char)(ascii+'a'));
         }
         return result.toString();
