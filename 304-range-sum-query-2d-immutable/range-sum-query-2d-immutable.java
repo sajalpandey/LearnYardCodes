@@ -9,13 +9,13 @@ class NumMatrix {
         prefix = new int[r+1][c+1];
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                if(i==0 && j==0)
-                    prefix[i+1][j+1] = matrix[i][j];
-                else if(i==0) 
-                    prefix[i+1][j+1] = matrix[i][j] + prefix[i+1][j];
-                else if(j==0)
-                    prefix[i+1][j+1] = matrix[i][j] + prefix[i][j+1];
-                else
+                // if(i==0 && j==0)
+                //     prefix[i+1][j+1] = matrix[i][j];
+                // else if(i==0) 
+                //     prefix[i+1][j+1] = matrix[i][j] + prefix[i+1][j];
+                // else if(j==0)
+                //     prefix[i+1][j+1] = matrix[i][j] + prefix[i][j+1];
+                // else
                     prefix[i+1][j+1] = matrix[i][j] - prefix[i][j] + prefix[i][j+1] + prefix[i+1][j];
             }  
         }
