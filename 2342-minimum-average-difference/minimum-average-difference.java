@@ -2,10 +2,9 @@ class Solution {
     public int minimumAverageDifference(int[] nums) {
         int n = nums.length;
         long prefix[] = new long[n];
-        long sum = 0;
-        for(int i=0; i<n; i++) {
-            sum += nums[i];
-            prefix[i] = sum;
+        prefix[0] = nums[0];
+        for(int i=1; i<n; i++) {
+            prefix[i] = prefix[i-1] + nums[i];
         }
         long result=-1, min = Integer.MAX_VALUE;
         for(int i=0; i<n; i++) {
