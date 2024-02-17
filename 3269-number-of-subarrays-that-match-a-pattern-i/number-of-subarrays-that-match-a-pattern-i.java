@@ -7,26 +7,18 @@ class Solution {
                 arr[i] = 1;
             else if(nums[i] > nums[i+1])
                 arr[i] = -1;
-            //System.out.print(arr[i]+" ");
         } 
-        System.out.println();
         int result = 0;
         for(int i=0; i<n-pattern.length; i++) {
-            if(arr[i] == pattern[0]) {
                 int end = i + pattern.length;
                 int k = i;
                 int p = 0;
-                while(k < end ) {
-                    if(arr[k]!=pattern[p])
-                        break;
+                while(k < end && arr[k]==pattern[p]) {
                     k++;
                     p++;
                 }
-                if(k >= end)
-                    result++;
-            }
+                result = k>=end ? ++result : result;
         }
         return result;
-        //return (result > pattern.length ? pattern.length : result);
     }
 }
