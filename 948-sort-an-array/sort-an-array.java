@@ -3,16 +3,16 @@ class Solution {
         int n = left.length + right.length;
         int [] result = new int[n];
         int i=0,j=0,k=0;
-        while(i<left.length && j<right.length) {
-            if(left[i] <= right[j])
+        while(i<left.length || j<right.length) {
+            if(j==right.length || i < left.length && left[i] <= right[j])
                 result[k++] = left[i++];
             else
                 result[k++] = right[j++];
         }
-        while(i<left.length)
-            result[k++] = left[i++];
-        while(j<right.length)
-            result[k++] = right[j++];
+        // while(i<left.length)
+        //     result[k++] = left[i++];
+        // while(j<right.length)
+        //     result[k++] = right[j++];
         return result;
 
     }
