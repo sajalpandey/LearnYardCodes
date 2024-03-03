@@ -15,12 +15,19 @@ class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         int row = matrix.length;
         int col = matrix[0].length;
-
-        for(int i=0; i<row; ++i){
-            if(matrix[i][col-1] >= target) {
-                return binarySearch(matrix[i],0,col-1,target);
+        int lo = 0,hi = row -1;
+        int row_num = -1;
+        while(lo <= hi) {
+            int mid = (lo + hi)/ 2;
+            if(matrix[mid][col-1] >= target) {
+                row_num = mid;
+                hi = mid -1;
+            } else {
+                lo = mid + 1;
             }
         }
+        if(row_num!=-1)
+            return binarySearch(matrix[row_num],0,col-1,target);
         return false;
     }
 }
