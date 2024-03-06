@@ -4,7 +4,7 @@ class Solution {
         if(s > e)
             return -1;
         int mid = (s+e)/2;
-        System.out.println(s+" - mid - "+mid+" - "+e);
+        //System.out.println(s+" - mid - "+mid+" - "+e);
 
         int ans = -1;
         //search on left side
