@@ -6,7 +6,6 @@ class Solution {
             double p = (int)Math.ceil((double) piles[i] / k);
             result += p;
         }
-        System.out.println("k = "+k+" -- result = "+result);
         return result;
     }
     public int minEatingSpeed(int[] piles, int h) {
@@ -15,7 +14,6 @@ class Solution {
         for(int ele :  piles)
             hi = Math.max(hi, ele);
         int result = 1;
-        int speed = hi;
         while(lo <= hi) {
             int mid = lo + (hi - lo) / 2;
             int ans = isAnswer(piles,mid,h);
