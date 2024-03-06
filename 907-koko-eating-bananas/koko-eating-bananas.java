@@ -2,7 +2,7 @@ class Solution {
     public int isAnswer(int[] piles, int k, int h) {
         int result = 0;
         
-        for(int i=0; i<piles.length; i++) {
+        for(int i=0; i<piles.length; ++i) {
             double p = (int)Math.ceil((double) piles[i] / k);
             result += p;
         }
