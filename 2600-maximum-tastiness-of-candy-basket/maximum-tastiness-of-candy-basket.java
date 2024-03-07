@@ -2,18 +2,14 @@ class Solution {
     public boolean isPossible(int[] price, int mid, int k) {
         int last = price[0];
         k--;
-        for(int i=0; i<price.length; ++i){
+        for(int i=0; i<price.length && k>0; ++i){
             if((last + mid) <= price[i]) {
                 // we can take this candy in the basket
                 last = price[i];
                 k--;
             }
-            if(k==0)
-                return true;
         }
-        if(k > 0)
-            return false;
-        return true;
+        return (k > 0 ? false : true);
     }
     public int maximumTastiness(int[] price, int k) {
         Arrays.sort(price);
