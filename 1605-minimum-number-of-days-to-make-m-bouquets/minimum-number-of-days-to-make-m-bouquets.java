@@ -15,7 +15,9 @@ class Solution {
         long ans = -1;
         if(bloomDay.length < (m*k))
             return (int)ans;
-        long lo = 1, hi = (int)1e9;
+        long lo = 1, hi = Integer.MIN_VALUE;
+        for(int ele : bloomDay)
+            hi = Math.max(hi, ele);
         while(lo <= hi) {
             long mid = (lo + (hi - lo) / 2);
             if(isPossible(bloomDay, mid, m, k)) {
