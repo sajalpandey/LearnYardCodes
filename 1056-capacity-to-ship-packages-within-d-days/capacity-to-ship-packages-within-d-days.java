@@ -10,7 +10,6 @@ class Solution {
                 w += ele;
             }
         }
-        System.out.println((d < days ? true : false) + " mid = "+mid+" --d = "+d+" days = "+days);
         return (d <= days ? true : false);
     }
     public int shipWithinDays(int[] weights, int days) {
