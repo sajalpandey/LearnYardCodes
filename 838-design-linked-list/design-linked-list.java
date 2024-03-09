@@ -24,7 +24,6 @@ class MyLinkedList {
         if(index <0 || index >= this.length)
             return -1;
         while(i < index) {
-            System.out.println("i = "+i+" temp.data = ");
             i++;
             temp = temp.next;
         }
@@ -67,7 +66,6 @@ class MyLinkedList {
         for(int i=0; i<index-1; i++) {
             temp = temp.next;
         }
-        System.out.println(temp.data);
         newNode.next = temp.next;
         temp.next = newNode;
         this.length++;
