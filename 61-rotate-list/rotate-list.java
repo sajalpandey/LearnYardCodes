@@ -27,7 +27,6 @@ class Solution {
         if(curr!=null)
             fast = curr.next;
         ListNode newHead = fast;
-        System.out.println(fast.val);
         while(fast.next!=null)
             fast = fast.next;
         curr.next = null;
