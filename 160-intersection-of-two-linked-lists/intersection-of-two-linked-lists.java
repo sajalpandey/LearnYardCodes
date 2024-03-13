@@ -24,8 +24,6 @@ public class Solution {
         int len2 = getLength(headB);
 
         ListNode currA = headA,currB=headB;
-        System.out.println(len1+" -- "+len2);
-        
         while((len1-len2) > 0) {
             currA = currA.next;
             len1--;
