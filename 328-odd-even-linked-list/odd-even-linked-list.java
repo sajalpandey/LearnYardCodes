@@ -13,19 +13,15 @@ class Solution {
         if(head==null || head.next==null || head.next.next==null)
             return head;
         ListNode oddHead = head, odd = head;
-        ListNode evenHead = head.next, even =  head.next,prev=odd;
-        while(odd!=null && even!=null) {
-            odd.next = even.next;
-            prev = odd;
+        ListNode evenHead = head.next, even =  head.next;
+        while(even!=null && even.next!=null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
             odd = odd.next;
-            if(odd!=null)
-                even.next = odd.next;
             even = even.next;
         } 
-        if(odd!=null)
-            odd.next = evenHead;
-        else
-            prev.next = evenHead;
+        odd.next = evenHead;
+        
         return oddHead;
     }
 }
