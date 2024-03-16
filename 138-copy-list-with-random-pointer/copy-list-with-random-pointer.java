@@ -24,7 +24,6 @@ class Solution {
         }
         curr = head;
         while(curr!=null) {
-            System.out.println("curr = "+curr.val);
             if(curr.random!=null)
                 curr.next.random = curr.random.next;
             curr = curr.next.next;
@@ -33,7 +32,6 @@ class Solution {
         Node ptr = dummy;
         curr = head;
         while(curr!=null) {
-            System.out.print("curr = "+curr.val+"  ");
             ptr.next = curr.next;
             ptr = ptr.next;
             curr.next = ptr.next;
