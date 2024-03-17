@@ -11,11 +11,13 @@ class Solution {
                     st.push(s.charAt(i));
             }
         }
-        StringBuilder result = new StringBuilder();
+        //StringBuilder result = new StringBuilder();
+        String result = "";
         while(!st.empty()) {
-            result.insert(0,st.peek());
+            result = st.peek() + result;
+            //result.insert(0,st.peek());
             st.pop();
         }
-        return result.toString();
+        return result;
     }
 }
