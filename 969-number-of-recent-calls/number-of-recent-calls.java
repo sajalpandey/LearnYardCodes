@@ -1,7 +1,7 @@
 class RecentCounter {
-    ArrayList<Integer> arr;
+    Queue<Integer> q;
     public RecentCounter() {
-        arr = new ArrayList<>();
+        q = new LinkedList<>();
     }
     
     public int ping(int t) {
@@ -9,15 +9,10 @@ class RecentCounter {
         // i=3002
         // range[3002-3000,3002] = {2,3002}
         // travers in array and find which numbers are lying in thr range
-        arr.add(t);
-        int count = 0;
-        int l = t - 3000;
-        int h = t;
-        for(int ele : arr) {
-            if(ele >= l && ele <= h)
-                count++;
-        }
-        return count;
+        q.add(t);
+        while(q.peek() < (t-3000))
+            q.remove();
+        return q.size();
     }
 }
 
