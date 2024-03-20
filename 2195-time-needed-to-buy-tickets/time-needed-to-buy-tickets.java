@@ -9,7 +9,7 @@ class Solution {
             tickets[index]--;
             if(tickets[index]>0)
                 q.add(index);
-            count++;
+            ++count;
         }
         return count;
     }
