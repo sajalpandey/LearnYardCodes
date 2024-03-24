@@ -1,21 +1,60 @@
 class MyHashMap {
-    int [] arr;
+
+    int size = 400;
+    LinkedList<Node> [] map;
+    class Node {
+        int key;
+        int value;
+        Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    } 
     public MyHashMap() {
-        arr = new int[10000000];
-        for(int i=0; i<10000000; i++)
-            arr[i] = -1;
+        map = new LinkedList[size];
     }
     
     public void put(int key, int value) {
-        arr[key] = value;
+        int bucket = key % size;
+        if(map[bucket] == null)
+            map[bucket] = new LinkedList<Node>();
+        LinkedList<Node> list = map[bucket];
+        for(Node node : list) {
+            if(node.key == key) {
+                node.value = value;
+                return;
+            }
+        }
+        map[bucket].add(new Node(key,value));
+        return;
     }
     
     public int get(int key) {
-        return arr[key];
+        int bucket = key % size;
+        if(map[bucket] == null)
+            return -1;
+        else {
+            LinkedList<Node> list = map[bucket];
+            for(Node node : list) {
+                if(node.key == key)
+                    return node.value;
+            }
+        }
+        return -1;
     }
     
     public void remove(int key) {
-        arr[key] = -1;
+        int bucket = key % size;
+        if(map[bucket] == null)
+            return;
+        LinkedList<Node> list = map[bucket];
+        Node toRemove = null;
+        for(Node node : list) {
+            if(node.key == key)
+                toRemove = node;
+        }
+        if(toRemove == null) return;
+        map[bucket].remove(toRemove);
     }
 }
 
