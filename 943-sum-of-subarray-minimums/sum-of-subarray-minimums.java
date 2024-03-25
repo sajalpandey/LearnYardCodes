@@ -24,7 +24,6 @@ class Solution {
 
         for(int i=0; i<n; i++) {
             long count = (long) (i - left[i]) * (right[i] - i) % mod;
-            System.out.println("count = "+count);
             sum = (int) ((sum + count * arr[i]) % mod);
         }
         return sum;
