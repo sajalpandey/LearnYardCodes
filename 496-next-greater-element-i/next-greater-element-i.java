@@ -7,14 +7,10 @@ class Solution {
             while(!st.empty() && st.peek() < nums2[i])
                 st.pop();
             map.put(nums2[i],(st.empty() ? -1 : st.peek()));
-            //result[i] = st.empty() ? -1 : st.peek();
             st.push(nums2[i]);
         }
         for(int i=0; i<nums1.length; i++) {
-            if(map.containsKey(nums1[i])) {
-                result[i] = map.get(nums1[i]);
-            } else
-                result[i] = -1;
+            result[i] = map.getOrDefault(nums1[i], -1);
         }
         return result;
     }
