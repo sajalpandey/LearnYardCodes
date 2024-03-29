@@ -1,19 +1,19 @@
 class Solution {
     public int maximumUniqueSubarray(int[] nums) {
-        HashMap<Integer,Integer> map = new HashMap<>();
+        HashSet<Integer> set = new HashSet<>();
         int sum = 0, maxSum = 0;
         int i = 0, j = 0;
         while(j < nums.length) {
-            map.put(nums[j], map.getOrDefault(nums[j], 0) + 1);
-            sum += nums[j];
-            while(i < j && map.get(nums[j]) > 1){
-                int freq = map.get(nums[i]);
-                map.put(nums[i], freq - 1);
-                sum -= nums[i];
-                i++;
+            if(!set.contains(nums[j])) {
+                sum += nums[j];
+                set.add(nums[j++]);
+                maxSum = Math.max(maxSum, sum);
+            } else {
+                while(i < j && set.contains(nums[j])) {
+                    sum -= nums[i];
+                    set.remove(nums[i++]);
+                }
             }
-            j++;
-            maxSum = Math.max(maxSum, sum);
         }
         return maxSum;
     }
