@@ -14,7 +14,7 @@ class Solution {
     }
     public List<List<Integer>> findPrimePairs(int n) {
         List<List<Integer>> l = new ArrayList<>();
-        int [] sieve = new int[1000001];
+        int [] sieve = new int[n+1];
         calculatePrime(sieve);
         for(int i=2; i<=n/2; i++)
             if(sieve[i]==0 && sieve[n-i]==0) {
