@@ -14,7 +14,8 @@ class Solution {
     }
     public String firstPalindrome(String[] words) {
         for(int i=0; i<words.length; i++) {
-            if(isPalindrome(words[i])) {
+            StringBuilder str = new StringBuilder(words[i]).reverse();
+            if(words[i].equals(str.toString())) {
                 return words[i];
             }
         }
