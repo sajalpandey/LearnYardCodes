@@ -13,7 +13,7 @@ class Solution {
         return true;
     }
     public String firstPalindrome(String[] words) {
-        for(int i=0; i<words.length; i++) {
+        for(int i=0; i<words.length; ++i) {
             StringBuilder str = new StringBuilder(words[i]).reverse();
             if(words[i].equals(str.toString())) {
                 return words[i];
