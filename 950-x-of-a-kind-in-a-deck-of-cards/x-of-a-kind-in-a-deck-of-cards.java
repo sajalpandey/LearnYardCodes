@@ -11,7 +11,7 @@ class Solution {
         int gcd = 0;
         for(int key : map.keySet()) {
             int val = map.get(key);
-            gcd = findGcd(Math.max(gcd,val), Math.min(gcd,val));
+            gcd = findGcd(gcd, val);
         }
         if(gcd > 1)
             return true;
