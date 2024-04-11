@@ -7,15 +7,15 @@ class Solution {
         int result = 0;
         int maxOddFreq = -1;
         for(char ch : map.keySet()) {
-            if(map.get(ch)%2==0)
-                result += map.get(ch);
-            else if(map.get(ch)%2!=0){
-                maxOddFreq = Math.max(maxOddFreq, map.get(ch));
-                result +=  map.get(ch) - 1;
+            int freq = map.get(ch);
+            if(freq%2==0)
+                result += freq;
+            else {
+                maxOddFreq = Math.max(maxOddFreq, freq);
+                result +=  freq - 1;
             }
         }
-        if(maxOddFreq==-1)
-            return result;
-        return (++result);   
+
+        return (maxOddFreq==-1) ? result : ++result;
     }
 }
