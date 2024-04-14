@@ -9,12 +9,12 @@ class Solution {
         if(j==n)
             return "0";
         StringBuilder result = new StringBuilder();
-        Integer[] newArr = new Integer[nums.length];
+        String[] newArr = new String[nums.length];
         for(int i=0; i<n; ++i)
-            newArr[i] = nums[i];
-        Arrays.sort(newArr, (a,b) -> ((b+""+a).compareTo(a+""+b)));
-        for(int ele : newArr)
-            result.append(ele);
+            newArr[i] = nums[i]+"";
+        Arrays.sort(newArr, (a,b) -> ((b+a).compareTo(a+b)));
+        for(int i=0; i<n; i++)
+            result.append(newArr[i]);
         return result.toString();
     }
 }
