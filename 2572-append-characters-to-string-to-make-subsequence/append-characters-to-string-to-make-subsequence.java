@@ -7,6 +7,6 @@ class Solution {
                 j++;
             i++;
         }
-        return (j == m ? 0 : (m - j));
+        return (m - j);
     }
 }
