@@ -1,7 +1,7 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
         int n = intervals.length;
-        Arrays.sort(intervals, (a,b) -> (a[0] - b[0]));
+        //Arrays.sort(intervals, (a,b) -> (a[0] - b[0]));
         int i = 0, j = 1;
         while(j < n) {
             //Check if points i & j can be merged
@@ -24,13 +24,22 @@ class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
         //Arrays.sort(intervals, (a,b) -> (a[0]-b[0]));
         int n = intervals.length;
-        int[][] arr = new int[n+1][2];
+        int[][] arr = new int[n+1][2]; 
+        boolean flag = false;
+        int k = 0;
         for(int i=0; i<n; i++) {
-            arr[i][0] = intervals[i][0];
-            arr[i][1] = intervals[i][1];
+            if(!flag && intervals[i][0] >= newInterval[0]) {
+                arr[k][0] = newInterval[0];
+                arr[k++][1] = newInterval[1];
+                flag = true;
+            } 
+            arr[k][0] = intervals[i][0];
+            arr[k++][1] = intervals[i][1];
         }
-        arr[n][0] = newInterval[0];
-        arr[n][1] = newInterval[1];
+        if(n==0 || !flag) {
+            arr[n][0] = newInterval[0];
+            arr[n][1] = newInterval[1];
+        }
         return merge(arr);
     }
 }
