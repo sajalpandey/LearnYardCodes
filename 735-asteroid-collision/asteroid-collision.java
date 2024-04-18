@@ -13,27 +13,14 @@ class Solution {
                 }
                 if(!st.isEmpty() && st.peek() < 0 || st.isEmpty())
                     st.push(arr[i]);
-                // else if(st.isEmpty())
-                //     st.push(arr[i]);
             } else {
-                // while(!st.isEmpty() && st.peek() < 0 && Math.abs(st.peek()) < arr[i])
-                //     st.pop();
-                // if(!st.isEmpty() && st.peek()+arr[i] == 0) {
-                //     st.pop();
-                //     continue;
-                // }
-                // if(!st.isEmpty() && st.peek() > 0)
-                //     st.push(arr[i]);
-                // else if(st.isEmpty())
                 st.push(arr[i]);
             }
         }
         int k = st.size();
-        //System.out.println("k = "+k);
         int result[] = new int[k];
         for(int i=k-1; i>=0; i--) {
-            result[i] = st.peek();
-            st.pop();
+            result[i] = st.pop();
         }
         return result;
     }
