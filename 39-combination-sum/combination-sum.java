@@ -6,17 +6,14 @@ class Solution {
             result.add(new ArrayList<Integer>(temp));
             return;
         }
-        // if(i == candidates.length) {
-        //     if(target == 0) 
-        //         result.add(new ArrayList<Integer>(temp));
-        //     return;
-        // }
 
-        temp.add(candidates[i]);
-        combinationSumHelper(result, candidates, temp, i, target-candidates[i]);
-
-        //backtrack
-        temp.remove(temp.size()-1);
+        if(target >= candidates[i]) {
+            temp.add(candidates[i]);
+            combinationSumHelper(result, candidates, temp, i, target-candidates[i]);
+            //backtrack
+            temp.remove(temp.size()-1);
+        }
+        
         combinationSumHelper(result, candidates, temp, i+1, target);
     }
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
