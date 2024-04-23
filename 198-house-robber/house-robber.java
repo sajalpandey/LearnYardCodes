@@ -18,7 +18,18 @@ class Solution {
         int n = nums.length;
         int[] dp = new int[n+1];
         Arrays.fill(dp, -1);
-        return helper(nums,0,dp);
+
+        //Recursion + memoisation =  TOP DOWN APPRAOCH
+        //return helper(nums,0,dp);
+
+        //BOTTOM UP APPROACH
+        dp[0] = 0;
+        dp[1] = nums[0];
+        for(int i=2; i<=n; i++) {
+            int val = nums[i-1];
+            dp[i] = Math.max(val + dp[i-2], dp[i-1]);
+        }
+        return dp[n];
     }
     /**
     Recursion time complexity os O(2^n) & SC: O(2^n)
