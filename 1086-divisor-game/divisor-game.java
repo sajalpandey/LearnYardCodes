@@ -19,8 +19,11 @@ class Solution {
         return false;
     }
     public boolean divisorGame(int n) {
-        int[] dp = new int[n+1];
-        Arrays.fill(dp, -1);
-        return divisorGameHelper(n, dp);
+        if(n%2==0)
+            return true;
+        return false;
+        // int[] dp = new int[n+1];
+        // Arrays.fill(dp, -1);
+        // return divisorGameHelper(n, dp);
     }
 }
