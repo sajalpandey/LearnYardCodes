@@ -38,9 +38,28 @@ class Solution {
     }
     public int numDecodings(String s) {
         int n = s.length();
-        int[] dp = new int[n+2];
+        int[] dp = new int[n+1];
         dp[0] = 1;
-        Arrays.fill(dp, -1);
-        return numDecodingsHelper(s, 0, dp);
+        Arrays.fill(dp, 0);
+        //return numDecodingsHelper(s, 0, dp);
+
+        dp[n] = 1; // way to take a char of string length 1
+        for(int i=n-1; i>=0; i--) {
+            //take 1 char 
+            String strLen1 = s.substring(i,i+1);
+            if(isValid(strLen1)) {
+                dp[i] += dp[i+1]; // Add ways to decode i+1th char
+            }
+
+            //take 2 char
+            if((i+2) <= n) {
+                String strLen2 = s.substring(i,i+2);
+                if(isValid(strLen2))
+                    dp[i] += dp[i+2]; //Add ways to decode i+2th char
+            }
+        }
+
+        //return total number of ways
+        return dp[0];        
     }
 }
