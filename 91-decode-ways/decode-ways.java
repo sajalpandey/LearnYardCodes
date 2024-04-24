@@ -40,9 +40,14 @@ class Solution {
         int n = s.length();
         int[] dp = new int[n+1];
         dp[0] = 1;
-        Arrays.fill(dp, 0);
+        Arrays.fill(dp, -1);
+        /** SOL - 1 */
+        /** TOP DOWN APPROACH */
         //return numDecodingsHelper(s, 0, dp);
 
+        /** SOL - 2 */
+        /** BOTTOM UP APPROACH */
+        Arrays.fill(dp, 0);
         dp[n] = 1; // way to take a char of string length 1
         for(int i=n-1; i>=0; i--) {
             //take 1 char 
