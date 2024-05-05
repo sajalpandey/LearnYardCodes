@@ -4,17 +4,14 @@ class Solution {
         //Generate all possible substring and store in map
         for(int i=0; i<s.length(); i++) {
             if(s.charAt(i) == '0') {
-                if(!map.containsKey(0)) {
-                    map.put(0, new int[] {i,i});
-                }
+                map.putIfAbsent(0, new int[] {i,i});
                 continue;
             }
             int number = 0;
 
             for(int j=i; j<s.length() && j<(i+32); j++) {
                 number = (number << 1) + (s.charAt(j) - '0');
-                if(!map.containsKey(number)) 
-                    map.put(number, new int[] {i, j});
+                map.putIfAbsent(number, new int[] {i, j});
             }
         }
         //Now search for every val in map 
