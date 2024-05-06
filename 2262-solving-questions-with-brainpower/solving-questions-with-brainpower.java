@@ -32,8 +32,26 @@ class Solution {
         //return mostPointsHelper(questions, 0);
 
         //2. DP Top Down
+        // long[] dp = new long[questions.length+1];
+        // Arrays.fill(dp, -1);
+        // return mostPointsTopDown(questions, 0, dp);
+
+        //3. DP Bottom Up
+        int n = questions.length;
         long[] dp = new long[questions.length+1];
-        Arrays.fill(dp, -1);
-        return mostPointsTopDown(questions, 0, dp);
+        
+        dp[questions.length] = 0;
+
+        for(int i=questions.length-1; i>=0; i--) {
+            //Two choice
+            //1. Take this question
+            long maxPoints1 = questions[i][0] + (i + questions[i][1] + 1<= n ? dp[1 + i + questions[i][1]] : 0);
+
+            //2. Skip it
+            long maxPoints2 = 0 + dp[i+1];
+
+            dp[i] = Math.max(maxPoints1, maxPoints2);
+        }
+        return dp[0];
     }
 }
