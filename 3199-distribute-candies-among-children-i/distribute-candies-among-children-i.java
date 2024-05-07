@@ -4,9 +4,9 @@ class Solution {
 
         for(int i=0; i<=limit && i<=n; i++) {
             for(int j=0; j<=limit && j<=n; j++) {
-                for(int k=0; k<=limit && k<=n; k++)
-                    if((i+j+k) == n)
-                    ans++;
+                    int k = n - i -j;
+                    if(k>=0 && k<=limit)
+                        ans++;
             }
         }
         return ans;
