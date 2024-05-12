@@ -45,11 +45,33 @@ class Solution {
         //return maxProfitHelper(prices, 0, 1);
 
         //2. DP Top Down
-        int n = prices.length;
-        int[][] dp = new int[n][2];
-        for(int[] row : dp)
-            Arrays.fill(row, -1);
+        // int n = prices.length;
+        // int[][] dp = new int[n][2];
+        // for(int[] row : dp)
+        //     Arrays.fill(row, -1);
         
-        return maxProfitTopDown(prices, 0, 1, dp);
+        // return maxProfitTopDown(prices, 0, 1, dp);
+
+        //3. DP Bottom Up
+        int n = prices.length;
+        int[][] dp = new int[n+1][2];
+        for(int i=n-1; i>=0; i--) {
+            for(int buy=0; buy<=1; buy++) {
+                int profit = 0;
+                if(buy == 1) {
+                    //Its a buy call , we can buy or skip
+                    int buyThis = (-prices[i] + dp[i+1][0]);
+                    int skipThis = (0 + dp[i+1][1]);
+                    profit = Math.max(buyThis, skipThis);
+                } else {
+                    //Its a sell call, we can sell of skip 
+                    int sellThis = (+prices[i] + dp[i+1][1]);
+                    int skipThis = (0 + dp[i+1][0]);
+                    profit = Math.max(sellThis, skipThis);
+                }
+                dp[i][buy] = profit;
+            }
+        }
+        return dp[0][1];
     }
 }
