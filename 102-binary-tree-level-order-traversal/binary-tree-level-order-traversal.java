@@ -17,13 +17,14 @@ class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
         Deque<TreeNode> dq = new ArrayDeque<>();
+        List<Integer> ans = new ArrayList<>();
         if(root == null)
             return result;
         dq.push(root);
-        while(dq.size() > 0) {
+        while(!dq.isEmpty()) {
             int size = dq.size();
-            List<Integer> ans = new ArrayList<>();
-            while(size > 0){
+            ans.clear();
+            while(size-- > 0){
                 TreeNode temp = dq.peekFirst();
                 dq.pollFirst();
                 if(temp.left != null)
@@ -31,7 +32,6 @@ class Solution {
                 if(temp.right != null)
                     dq.addLast(temp.right);
                 ans.add(temp.val);
-                size--;
             }
             result.add(new ArrayList<>(ans));
         }
