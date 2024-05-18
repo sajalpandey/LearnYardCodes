@@ -24,15 +24,33 @@ class Solution {
 
         return dp[i][j] = Math.min(op1, op2);
     }
+
+    public int minimumTotalBottomUp(List<List<Integer>> triangle) {
+        int m = triangle.size();
+        int[][] dp = new int[m+1][m+1];
+
+        for(int i=m-1; i>=0; i--) {
+            for(int j=i; j>=0; j--) {
+                int op1 = triangle.get(i).get(j) + dp[i+1][j];
+                int op2 = triangle.get(i).get(j) + dp[i+1][j+1];
+
+                dp[i][j] = Math.min(op1, op2);
+            }
+        }
+        return dp[0][0];
+    }
     public int minimumTotal(List<List<Integer>> triangle) {
         int m = triangle.size();
         //1. Recursion
         //return minimumTotalHelper(triangle, 0, 0, m);
 
         //2. DP Top Down
-        int[][] dp = new int[m+1][m+1];
-        for(int[] row : dp)
-            Arrays.fill(row, -1);
-        return minimumTotalTopDown(triangle, 0, 0, m, dp);
+        // int[][] dp = new int[m+1][m+1];
+        // for(int[] row : dp)
+        //     Arrays.fill(row, -1);
+        // return minimumTotalTopDown(triangle, 0, 0, m, dp);
+
+        //3. DP Bottom Up
+        return minimumTotalBottomUp(triangle);
     }
 }
