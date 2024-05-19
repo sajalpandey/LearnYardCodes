@@ -18,23 +18,26 @@ class Solution {
         if(root == null)
             return new ArrayList<>();
         Queue<TreeNode> q = new LinkedList<>();
-        TreeMap<Integer, Integer> map = new TreeMap<>();
+        List<Integer> result = new ArrayList<>();
         q.add(root);
-        map.put(0, root.val);
         int level = 0;
         while(!q.isEmpty()) {
             int size = q.size();
+            int rightMostNode = -999;
             while(size-- > 0) {
                 TreeNode node = q.peek();
                 q.remove();
-                map.put(level, node.val);
+                //map.put(level, node.val);
+                rightMostNode = node.val;
                 if(node.left != null)
                     q.add(node.left);
                 if(node.right != null)
                     q.add(node.right);
             }
-            level++;
+            if(rightMostNode != -999)
+                result.add(rightMostNode);
+
         }
-        return new ArrayList<>(map.values());
+        return result;
     }
 }
