@@ -34,6 +34,33 @@ class Solution {
 
         return dp[row][col] = matrix[row][col] + Math.min(op1, Math.min(op2, op3));
     }
+
+    public int minFallingPathSumBottomUp(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int[][] dp = new int[m+1][n+1];
+        for(int j=0; j<n; j++)
+            dp[m-1][j] = matrix[m-1][j];
+        
+        for(int i=m-2; i>=0; i--) {
+            for(int j=n-1; j>=0; j--) {
+                int op1 = (j-1) >= 0 ? dp[i+1][j-1] : Integer.MAX_VALUE;
+                
+                int op2 = dp[i+1][j];
+                
+                int op3 = (j+1) <= n-1 ? dp[i+1][j+1] : Integer.MAX_VALUE;
+
+                dp[i][j] = matrix[i][j] + Math.min(op1, Math.min(op2, op3));
+            }
+        }
+
+        int ans = Integer.MAX_VALUE;
+        for(int j=0; j<n; j++)
+            ans = Math.min(ans, dp[0][j]);
+        
+        return ans;
+    }
     public int minFallingPathSum(int[][] matrix) {
 
         //1. Recursive
@@ -45,13 +72,16 @@ class Solution {
         // return ans;
 
         //2. DP Top Down
-        int[][] dp = new int[matrix.length][matrix.length];
-        for(int[] row : dp)
-            Arrays.fill(row, Integer.MAX_VALUE);
-        int ans = Integer.MAX_VALUE;
-        for(int j=0; j<matrix[0].length; j++) {
-            ans = Math.min(ans, minFallingPathSumTopDown(matrix, 0, j, dp));
-        }
-        return ans;
+        // int[][] dp = new int[matrix.length][matrix.length];
+        // for(int[] row : dp)
+        //     Arrays.fill(row, Integer.MAX_VALUE);
+        // int ans = Integer.MAX_VALUE;
+        // for(int j=0; j<matrix[0].length; j++) {
+        //     ans = Math.min(ans, minFallingPathSumTopDown(matrix, 0, j, dp));
+        // }
+        // return ans;
+
+        //3. DP Bottom Up
+        return minFallingPathSumBottomUp(matrix);
     }
 }
