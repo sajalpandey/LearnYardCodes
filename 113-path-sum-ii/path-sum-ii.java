@@ -18,16 +18,17 @@ class Solution {
         System.out.println("targetSum = "+targetSum);
         if(root == null)
             return;
+        temp.add(root.val);
         if(targetSum == root.val && root.left == null && root.right == null) {
-            temp.add(root.val);
+            //temp.add(root.val);
             result.add(new ArrayList<>(temp));
-            if(!temp.isEmpty())
-                temp.remove(temp.size()-1);
-            return;
+            // if(!temp.isEmpty())
+            //     temp.remove(temp.size()-1);
+            // return;
         }
         
         //serach on left side
-        temp.add(root.val);
+        
         //targetSum = targetSum-root.val
         pathSumHelper(root.left, targetSum-root.val, result, temp);
         //serach on right side
