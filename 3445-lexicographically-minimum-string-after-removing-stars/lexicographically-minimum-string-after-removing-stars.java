@@ -14,7 +14,6 @@ class Solution {
                 //now we need to delete smallest character
                 //if we have more than 1 occurence od char remove the frequent added
                 marked[j] = false;
-                System.out.println("sajal");
                 for(int i=0; i<26; i++) {
                     if(map.get(i).size() > 0) {
                         //remove the last index from arraylist
