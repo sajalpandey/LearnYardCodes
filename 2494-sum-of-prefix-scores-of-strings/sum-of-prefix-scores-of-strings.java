@@ -45,14 +45,12 @@ class Solution {
     public int[] sumPrefixScores(String[] words) {
         int n = words.length;
         int[] result = new int[n];
-        Arrays.fill(result, 1);
         //Insert into trie
         for(String str : words)
             insert(str);
         //Search in Trie
-        for(int i=0; i<words.length; i++) {
-            int prefix = Math.max(1, search(words[i]));
-            result[i] = prefix;
+        for(int i=0; i<n; i++) {
+            result[i] = search(words[i]);
         }
         return result;
     }
