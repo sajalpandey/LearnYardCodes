@@ -9,6 +9,21 @@ class Solution {
             dfs(nb);
         }
     }
+
+    public void bfs(int curr) {
+        Queue<Integer> q = new LinkedList<>();
+        q.add(curr);
+        visited[curr] = true;
+        while(!q.isEmpty()) {
+            int node = q.poll();
+            for(int nb : adj.get(node)) {
+                if(visited[nb] == true)
+                    continue;
+                q.add(nb);
+                visited[nb] = true;
+            }
+        }
+    }
     public boolean validPath(int n, int[][] edges, int source, int destination) {
         visited = new boolean[n];
         Arrays.fill(visited, false);
@@ -25,7 +40,10 @@ class Solution {
         
         // We will start DFS from source
         // if dest is reachable from source it will be marked as true in visited array
-        dfs(source);
+        //dfs(source);
+
+        // Either we can do BFS from source and check the same
+        bfs(source);
 
         return visited[destination];
     }
