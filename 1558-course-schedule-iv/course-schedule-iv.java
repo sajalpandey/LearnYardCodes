@@ -36,14 +36,7 @@ class Solution {
                 if(indegree[nb] == 0)
                     q.add(nb);
             }
-        };
-        
-        int[] result = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            //System.out.print(list.get(i)+" ");
-            result[i] = list.get(i);
         }
-        //return result;
     }
     public List<Boolean> checkIfPrerequisite(int numCourses, int[][] pre, int[][] queries) {
         adj = new ArrayList<>();
