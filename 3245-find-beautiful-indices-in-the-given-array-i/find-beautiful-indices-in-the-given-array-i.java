@@ -1,5 +1,5 @@
 class Solution {
-    int p = 26, mod = 1000000007;
+    int p = 31, mod = 100000009;
     //Write a hash function
     public long getHashCode(String str) {
         long ans = 0;
@@ -47,40 +47,47 @@ class Solution {
 
         return res;
     }
-    public int binarySearch(List<Integer> list, int target) {
-        int left = 0;
-        int right = list.size() - 1;
+public boolean binary_search(int target,int k,List<Integer> a_index,List<Integer> b_index){
+        
+        int l = 0;
+        int r = b_index.size()-1;
+        
+        int left  = target - k;
+        int right = target + k;
+        
 
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
+        while( l <= r){
+            
+            int mid   = (l + (r-l)/2);
+            int val   = b_index.get(mid);
 
-            // Check if target is present at mid
-            if (list.get(mid) == target)
-                return mid;
-
-            // If target is greater, ignore left half
-            if (list.get(mid) < target)
-                left = mid + 1;
-            // If target is smaller, ignore right half
-            else
-                right = mid - 1;
+            if( val >= left && val <= right   ) return true;
+            
+            if( val < left )        l = mid + 1;
+            else if ( val > right ) r = mid - 1;
+                        
         }
-
-        // Target not found in list
-        return -1;
+        
+        return false;
+                
     }
+
     public List<Integer> beautifulIndices(String s, String a, String b, int k) {
-        // System.out.println(s.length());
-        // System.out.println(a.length());
-        // System.out.println(b.length());
-        List<Integer> v1 = rabinKarp(s, a);
-        List<Integer> v2 = rabinKarp(s, b);
+        List<Integer> p = rabinKarp(s, a);
+        List<Integer> q = rabinKarp(s, b);
         List<Integer> ans = new ArrayList<>();
 
-        for(int i = 0, j = 0; i < v1.size(); ++i){
-        while(j < v2.size() && v1.get(i) > v2.get(j) && Math.abs(v1.get(i) - v2.get(j)) > k) j++;
-        if(j < v2.size() && Math.abs(v1.get(i) - v2.get(j)) <= k) ans.add(v1.get(i));
-        }
+        for(int ele : p)
+            System.out.print(ele+" ");
+        System.out.println();
+        for(int ele : q)
+            System.out.print(ele+" ");
+        for(int i=0; i < p.size(); ++i){
+             
+            if( binary_search(p.get(i),k,p,q) ) 
+                  ans.add(p.get(i));
+         
+         }
         return ans;
     }
 }
