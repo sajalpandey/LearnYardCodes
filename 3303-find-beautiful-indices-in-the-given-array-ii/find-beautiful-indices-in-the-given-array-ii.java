@@ -1,5 +1,5 @@
 class Solution {
-    int p = 26, mod = 998244353;
+    int p = 31, mod = 100000009;
     //Write a hash function
     public long getHashCode(String str) {
         long ans = 0;
