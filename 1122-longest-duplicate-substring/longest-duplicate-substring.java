@@ -61,7 +61,6 @@ class Solution {
         int l = 1, e = s.length()-1;
         while(l <= e) {
             int mid = (l + e) / 2;
-            System.out.println("mid = "+mid);
             String temp = getDuplicatedString(s, mid);
             if(temp.length() > 0) {
                 //we have found the duplicated string
