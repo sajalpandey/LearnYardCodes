@@ -11,7 +11,6 @@ class Solution {
             i++;
         } else if(str.charAt(i) == '+')
             i++;
-        System.out.println("sign = "+sign+" -- i = "+i+" --str = ");
         while(i < str.length() && str.charAt(i) >= '0' && str.charAt(i) <= '9') {
             if(result * sign >= Integer.MAX_VALUE) {
                 return Integer.MAX_VALUE;
@@ -20,8 +19,6 @@ class Solution {
             result = result * 10 + (str.charAt(i) - '0');
             i++;
         }
-        //System.out.println("result = "+result);
-        System.out.println("result = "+result);
         if(result * sign >= Integer.MAX_VALUE) {
             return Integer.MAX_VALUE;
         } else if(result * sign <= Integer.MIN_VALUE)
