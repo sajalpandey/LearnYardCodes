@@ -1,9 +1,6 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        HashSet<Integer> set = new HashSet<>();
-        for(int ele : nums)
-            set.add(ele);
         Arrays.sort(nums);
         int n = nums.length;
         for(int i=0; i<n; i++) {
