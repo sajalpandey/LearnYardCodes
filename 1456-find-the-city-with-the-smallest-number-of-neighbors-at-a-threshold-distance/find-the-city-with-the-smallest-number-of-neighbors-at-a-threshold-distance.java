@@ -33,7 +33,7 @@ class Solution {
 			for(int j = 0; j < n; ++j)
 				if(d[i][j] <= distanceThreshold)
 					curCount += 1;
-            System.out.println(curCount);
+            //System.out.println(curCount);
 			if(curCount <= minCount) {
 				minCount = curCount;
 				ans = i;
