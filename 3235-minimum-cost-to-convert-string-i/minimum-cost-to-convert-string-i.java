@@ -20,10 +20,10 @@ class Solution {
                 for(int j = 0; j < n; ++j)
                     d[i][j] = Math.min(d[i][j], d[i][k] + d[k][j]);
 
-        for(int i = 0; i < n; ++i)
-            for(int j = 0; j < n; ++j)
-                if(d[i][j] == inf)
-                    d[i][j] = -1;
+        // for(int i = 0; i < n; ++i)
+        //     for(int j = 0; j < n; ++j)
+        //         if(d[i][j] == inf)
+        //             d[i][j] = -1;
 		return d;
     }
     public long minimumCost(String source, String target, char[] original, char[] changed, int[] cost) {
@@ -39,8 +39,8 @@ class Solution {
         for(int i=0; i<source.length(); i++) {
             int j = target.charAt(i) - 'a';
             int p = source.charAt(i) - 'a';
-            if(d[p][j] == -1)
-                return -1;
+            if(d[p][j] == inf)
+                return -1L;
             //System.out.println(source.charAt(i)+" --> "+target.charAt(i)+" = "+d[p][j]);
             ans += d[p][j];
         }
