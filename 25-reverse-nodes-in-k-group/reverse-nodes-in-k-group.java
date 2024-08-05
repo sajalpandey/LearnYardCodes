@@ -9,30 +9,30 @@
  * }
  */
 class Solution {
-    public void reverseList(ListNode start,ListNode end) {
-        ListNode t1 = null,t2=null;
-        ListNode curr = start;
-        while(t2!=end) {
-            if(curr!=null)
-                t1 = curr.next;
-            curr.next = t2;
-            t2 = curr;
-            curr = t1;
-        }
-    }
     public ListNode reverseKGroup(ListNode head, int k) {
-        if(k==1 || head==null || head.next==null)
+        if(k == 1 || head == null)
             return head;
-        ListNode end=head,start=head;
-        int size = k-1;
-        while(size-->0) {
-            end = end.next;
-            if(end==null)
-                return head;
+        int count = 0;
+        ListNode current = head;
+        while(count < k && current != null) {
+            current = current.next;
+            count++;
         }
-        ListNode rem_head = reverseKGroup(end.next,k);
-        reverseList(start,end);
-        start.next = rem_head;
-        return end;
+
+        if(count == k) {
+            //means we can reverse these K nodes
+            ListNode t1 = null, t2 = null, curr = head;
+            for(int i=0; i<k; i++) {
+                t2 = curr.next;
+                curr.next = t1;
+                t1 = curr;
+                curr = t2;
+            }
+
+            head.next = reverseKGroup(curr, k);
+
+            return t1;
+        } else
+            return head;
     }
 }
