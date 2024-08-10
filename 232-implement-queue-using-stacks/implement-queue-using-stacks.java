@@ -1,25 +1,44 @@
 class MyQueue {
-    ArrayList<Integer> arr;
-    int front;
+    Stack<Integer> st;
     public MyQueue() {
-        arr = new ArrayList<>();
-        front = 0;
+        st = new Stack<>();
     }
     
     public void push(int x) {
-        arr.add(x);
+        st.push(x);
     }
     
     public int pop() {
-        return arr.get(front++);
+        if(st.size() == 0)
+            return -1;
+        Stack<Integer> temp = new Stack<>();
+        while(st.size() > 1) {
+            temp.push(st.pop());
+        }
+        int ele = st.pop();
+        while(!temp.isEmpty()) {
+            st.push(temp.pop());
+        }
+        return ele;
     }
     
     public int peek() {
-        return arr.get(front);
+        if(st.size() == 0)
+            return -1;
+        Stack<Integer> temp = new Stack<>();
+        while(st.size() > 1) {
+            temp.push(st.pop());
+        }
+        int ele = st.peek();
+        temp.push(st.pop());
+        while(!temp.isEmpty()) {
+            st.push(temp.pop());
+        }
+        return ele;
     }
     
     public boolean empty() {
-        return front==arr.size();
+        return (st.size() == 0);
     }
 }
 
