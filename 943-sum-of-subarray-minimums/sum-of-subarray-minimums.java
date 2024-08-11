@@ -6,19 +6,20 @@ class Solution {
         Stack<Integer> st = new Stack<>();
         int left[] = new int[n];
         int right[] = new int[n];
-        for (int i = 0; i < n; i++) {
-            while (!st.empty() && arr[st.peek()] >= arr[i]) {
+        //Calculate left smaller elements
+        for(int i=0; i<n; i++) {
+            while(!st.isEmpty() && arr[st.peek()] >= arr[i]) {
                 st.pop();
             }
-            left[i] = st.empty() ? -1 : st.peek();
+            left[i] = st.isEmpty() ? -1 : st.peek();
             st.push(i);
         }
-
         st.clear();
+        //Calculate right smaller
         for(int i=n-1; i>=0; i--) {
-            while(!st.empty() && arr[st.peek()] > arr[i])
+            while(!st.isEmpty() && arr[st.peek()] > arr[i])
                 st.pop();
-            right[i] = st.empty() ? n : st.peek();
+            right[i] = st.isEmpty() ? n : st.peek();
             st.push(i);
         }
 
