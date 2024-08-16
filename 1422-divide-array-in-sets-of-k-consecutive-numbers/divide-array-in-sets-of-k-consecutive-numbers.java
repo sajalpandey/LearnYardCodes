@@ -1,5 +1,7 @@
 class Solution {
     public boolean isPossibleDivide(int[] hand, int groupSize) {
+        if(hand.length % groupSize != 0)
+            return false;
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         for(int ele : hand)
             pq.add(ele);
