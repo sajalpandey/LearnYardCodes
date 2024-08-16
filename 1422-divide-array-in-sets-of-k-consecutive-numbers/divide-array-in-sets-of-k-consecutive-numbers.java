@@ -1,31 +1,16 @@
 class Solution {
-    public boolean check(int[] hand, int groupSize, int i) {
-        int ele = hand[i];
-        hand[i++] = -1;
-        int count = 1;
-        while(i < hand.length && count < groupSize) {
-            if(hand[i] == ele+1) {
-                ele = hand[i];
-                hand[i] = -1;
-                count++;
-            }
-            i++;
-        }
-
-        if(count == groupSize)
-            return true;
-        return false;
-    }
     public boolean isPossibleDivide(int[] hand, int groupSize) {
-        int n = hand.length;
-        if(n % groupSize != 0)
-            return false;
-        Arrays.sort(hand);
-
-        for(int i=0; i<n; i++) {
-            if(hand[i] >= 0)
-                if(!check(hand, groupSize, i))
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int ele : hand)
+            pq.add(ele);
+        while(!pq.isEmpty()) {
+            int ele = pq.poll();
+            
+            for(int i=1; i<groupSize; i++) {
+                if(!pq.remove(ele+1))
                     return false;
+                ele++;
+            }
         }
         return true;
     }
