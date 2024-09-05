@@ -8,8 +8,7 @@ class Solution {
             return new int[]{};
         
         int[] ans = new int[n];
-        for(int i=0; i<n; i++)
-            ans[i] = remSum/n;
+        Arrays.fill(ans, remSum/n);
         for(int i=0; i<remSum%n; i++)
             ans[i] += 1;
         return ans;
