@@ -12,7 +12,8 @@ class Solution {
         
         int[] ans = new int[n];
         Arrays.fill(ans, remSum/n);
-        for(int i=0; i<remSum%n; i++)
+        int mod = remSum%n;
+        for(int i=0; i<mod; i++)
             ans[i] += 1;
         return ans;
     }
