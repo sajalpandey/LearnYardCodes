@@ -2,7 +2,10 @@ class Solution {
     public int[] missingRolls(int[] rolls, int mean, int n) {
         // (12+4m)/7 = 3
         int m = rolls.length;
-        int sumofRolls = Arrays.stream(rolls).sum();
+
+        int sumofRolls = 0;
+        for(int ele : rolls)
+            sumofRolls += ele;
         int remSum = mean * (n + m) - sumofRolls;
         if(remSum > 6*n || remSum < n)
             return new int[]{};
