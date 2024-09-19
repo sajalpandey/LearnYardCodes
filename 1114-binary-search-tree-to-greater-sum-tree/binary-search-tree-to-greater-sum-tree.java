@@ -14,20 +14,19 @@
  * }
  */
 class Solution {
-    public void reverseInorder(TreeNode root, int[] sum) {
-        if (root == null)
+    int totalSum = 0;
+    public void helper(TreeNode root) {
+        if(root == null)
             return;
-        reverseInorder(root.right, sum);
-        int temp = root.val;
-        root.val+=sum[0];
-        sum[0]+=temp;
-        reverseInorder(root.left, sum);
+        helper(root.right);
+
+        root.val += totalSum;
+        totalSum = root.val;
+
+        helper(root.left);
     }
     public TreeNode bstToGst(TreeNode root) {
-        //We can use reverse inorder traversal
-        int[] sum = new int[1];
-        reverseInorder(root, sum);
+        helper(root);
         return root;
-        
     }
 }
