@@ -1,34 +1,31 @@
 class Solution {
     List<List<Integer>> adj;
-    boolean[] visited;
-    public void dfs(int curr) {
-        visited[curr] = true;
-        for(int nb : adj.get(curr)) {
-            if(visited[nb] == true)
+    boolean vis[];
+    public void dfs(int src, List<List<Integer>> adj, boolean vis[]) {
+        vis[src] = true;
+        for(int nb : adj.get(src)) {
+            if(vis[nb] == true)
                 continue;
-            dfs(nb);
+            dfs(nb, adj, vis);
         }
     }
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
-        adj = new ArrayList<>();
         int n = rooms.size();
-        for(int i=0; i<n ;i++)
+        vis = new boolean[n];
+        Arrays.fill(vis, false);
+        vis[0] = true;
+        adj = new ArrayList<>();
+        for(int i=0; i<n; i++)
             adj.add(new ArrayList<>());
-        
         for(int i=0; i<n; i++) {
             for(int j=0; j<rooms.get(i).size(); j++) {
-                int p = rooms.get(i).get(j);
-                if(i == p)
-                    continue;
-                adj.get(i).add(p);
-                //adj.get(p).add(i);
+                adj.get(i).add(rooms.get(i).get(j));
             }
         }
-        visited = new boolean[n];
-        Arrays.fill(visited, false);
-        dfs(0);
-        for(int i=0; i<n; i++)
-            if(visited[i] == false)
+
+        dfs(0, adj, vis);
+        for(boolean val : vis)
+            if(val == false)
                 return false;
         return true;
     }
