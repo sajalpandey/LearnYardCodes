@@ -5,7 +5,7 @@ class Solution {
             char [] arr = str.toCharArray();
             Arrays.sort(arr);
             String sorted = new String(arr);
-            System.out.println(str+" -- "+sorted);
+            //System.out.println(str+" -- "+sorted);
             if(!map.containsKey(sorted)) {
                 map.put(sorted, new ArrayList<>());
             }
@@ -13,8 +13,8 @@ class Solution {
         }
 
         List<List<String>> result = new ArrayList<>();
-        for(String key : map.keySet()) {
-            result.add(new ArrayList<>(map.get(key)));
+        for (List<String> list: map.values()) {
+            result.add(list);
         }
         return result;
     }
