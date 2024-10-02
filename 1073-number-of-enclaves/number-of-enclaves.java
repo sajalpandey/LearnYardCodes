@@ -10,14 +10,7 @@ class Solution {
         dfs(grid, vis, i, j+1, m, n);
     }
     public int numEnclaves(int[][] grid) {
-        int landCell = 0;
         int m = grid.length, n = grid[0].length;
-        for(int i=0; i<m; i++) {
-            for(int j=0; j<n; j++)
-                if(grid[i][j] == 1)
-                    landCell++;
-        }
-
         boolean[][] vis = new boolean[m][n];
         for(boolean[] row : vis)
             Arrays.fill(row, false);
