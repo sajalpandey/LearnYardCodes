@@ -1,24 +1,23 @@
 class Solution {
-    List<List<Integer>> adj;
-    int[] visited;
-    public boolean dfs(int curr, int bit) {
-        visited[curr] = bit;
-        for(int nb : adj.get(curr)) {
-            if(visited[nb] != -1) {
-                if(visited[curr] == visited[nb])
+    ArrayList<ArrayList<Integer>>adj;
+    int[] color;
+    public boolean dfs(ArrayList<ArrayList<Integer>>adj, int src, int c) {
+        color[src] = c;
+        
+        //traverse neightbour
+        for(int nb : adj.get(src)) {
+            if(color[nb] == -1) {
+                if(dfs(adj, nb, 1-c) == false)
                     return false;
-                continue;
-            }
-            //check for every non visited child
-            if(dfs(nb, 1^bit) == false)
+            } else if(color[nb] == c)
                 return false;
         }
         return true;
     }
     public boolean isBipartite(int[][] edges) {
         int n = edges.length;
-        visited = new int[n];
-        Arrays.fill(visited, -1);
+        color = new int[n];
+        Arrays.fill(color, -1);
         adj = new ArrayList<>();
         for(int i=0; i<n; i++)
             adj.add(new ArrayList<>());
@@ -30,10 +29,11 @@ class Solution {
             }
             
         }
-        boolean ans = true;
-        for(int i=0; i<n; i++)
-            if(visited[i] == -1)
-                ans = ans & dfs(i,0);
-        return ans;
+        for(int i=0; i<n; i++) {
+            if(color[i] == -1)
+                if(dfs(adj, i, 0) == false)
+                    return false;
+        }
+        return true;
     }
 }
