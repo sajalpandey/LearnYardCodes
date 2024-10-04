@@ -1,56 +1,45 @@
 class Solution {
+    int[] vis, pathVis;
     List<List<Integer>> adj;
-    int[] vis;
-    public boolean dfs(int curr, List<Integer> st) {
-        //mark this node in progress
-        vis[curr] = 1;
-
-        //visit its neighbour
-        for(int nb : adj.get(curr)) {
-            //if its un-visited ==> call DFS
+    public boolean dfs(int src, List<List<Integer>> adj, List<Integer> result) {
+        vis[src] = 1;
+        pathVis[src] = 1;
+        
+        for(int nb : adj.get(src)) {
             if(vis[nb] == 0) {
-                boolean possible = dfs(nb, st);
-                if(!possible)
+                if(dfs(nb, adj, result) == false)
                     return false;
-            } else if(vis[nb] == 1) {
-                //found a neighbour which is already in dfs process ==> back edge
-                //cycle detected
+            } else if(pathVis[nb] == 1)
                 return false;
-            }
         }
-        //now mark parent as visited
-        vis[curr] = 2;
-        st.add(curr);
+        
+        result.add(src);
+        pathVis[src] = 0;
         return true;
-    }
-    public List<Integer> topoSortDfs(int n) {
-        List<Integer> ans = new ArrayList<>();
-        Stack<Integer> st = new Stack();
-        for(int i=0; i<n; i++) {
-            if(vis[i] == 0) {
-                boolean possible = dfs(i, ans);
-                // if(!possible)
-                //     return ans;
-            }
-        }
-        Collections.sort(ans);
-        return ans;
     }
 
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        int n = graph.length;
+        int V = graph.length;
+        vis = new int[V];
+        pathVis = new int[V];
+        
+        List<Integer> result = new ArrayList<>();
         adj = new ArrayList<>();
-        vis = new int[n];
 
-        for(int i=0; i<n; i++)
+        for(int i=0; i<V; i++)
             adj.add(new ArrayList<>());
         
         //create adjacency list
-        for(int i=0; i<n; i++) {
+        for(int i=0; i<V; i++) {
             for(int j=0; j<graph[i].length; j++) 
                 adj.get(i).add(graph[i][j]);
         }
-
-        return topoSortDfs(n);
+        for(int i=0; i<V; i++) {
+            if(vis[i] == 0) {
+                dfs(i, adj, result);
+            }
+        }
+        Collections.sort(result);
+        return result;
     }
 }
