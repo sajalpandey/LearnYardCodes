@@ -1,12 +1,14 @@
 class Solution {
     public int shortestPathBinaryMatrix(int[][] grid) {
-        if(grid[0][0] != 0)
-            return -1;
+        
+
         int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{0,0, 1});
 
         int m = grid.length, n = grid[0].length;
+        if (grid[0][0] == 1 || grid[n - 1][n - 1] == 1) 
+            return -1;
         int[][] dist = new int[m][n];
         for(int[] row : dist)
             Arrays.fill(row, (int)1e9);
