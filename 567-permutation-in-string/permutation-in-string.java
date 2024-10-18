@@ -1,25 +1,37 @@
 class Solution {
-    private boolean allZeros(int[] count) {
-        for (int i = 0; i < 26; i++) {
-            if (count[i] != 0) return false;
+
+    public boolean checkAllZero(int[] freq){
+        for(int i=0; i<freq.length; i++) {
+            if(freq[i] != 0)
+                return false;
         }
         return true;
     }
     public boolean checkInclusion(String s1, String s2) {
-        int l1 = s1.length(), l2 = s2.length();
-        if(l1 > l2)
-            return false;
-        int [] freq = new int [26];
-        for(int i=0; i<l1; i++)
-            freq[s1.charAt(i) - 'a']++;
-        
-        for(int i=0; i<l2; ++i) {
-            if(i >= l1)
-                freq[s2.charAt(i-l1) - 'a']++;
-            freq[s2.charAt(i) - 'a']--;
-            if(allZeros(freq))
-                return true;
+        //Permutaion means all characters of s1 should be present in s2
+        //store all characters in freq array
+        //for each window of size(s1) in s2 find if it contains all chars of s1
+
+        //TC : O(|s2|)
+
+        int[] freq = new int[26];
+        for(char ch : s1.toCharArray()) {
+            freq[ch - 'a']++;
         }
+
+        for(int i=0; i<s2.length(); i++) {
+            char ch = s2.charAt(i);
+            freq[ch - 'a']--;
+
+            if(i >= s1.length()) {
+                freq[s2.charAt(i-s1.length()) - 'a']++;
+            }
+            if(checkAllZero(freq))
+                    return true;
+        }
+
+
         return false;
+
     }
 }
