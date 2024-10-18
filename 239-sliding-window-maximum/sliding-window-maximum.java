@@ -8,7 +8,7 @@ class Solution {
         int p = 0, i = 0;
         while(i < n) {
             //Logic how to keep in Dq
-            while(!dq.isEmpty() && nums[dq.peekLast()] < nums[i])
+            while(!dq.isEmpty() && nums[dq.peekLast()] <= nums[i])
                 dq.removeLast();
 
             //Logic when to remove from dq
