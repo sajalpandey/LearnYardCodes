@@ -1,21 +1,30 @@
 class Solution {
     public int characterReplacement(String s, int k) {
-        int[] map = new int[26];
-        int i = 0, j = 0, maxLen = 0, maxFreq = 0;
+        // changes = window_length - max freq character
+        // if these changes > k
+        // we need to shrink our window
+        
+        int maxFreq = 0;
+        int i = 0, j = 0;
+        int[] freq = new int[26];
+        
+        int result = 0;
         while(j < s.length()) {
             char ch = s.charAt(j);
-            maxFreq = Math.max(maxFreq, ++map[ch - 'A']); 
-            /**
-            Changes = window length - maxFreq of char till now
-            whene ever changes > k, will shrink our window
-             */
-            if((j-i+1) - maxFreq > k) {
-                --map[s.charAt(i) - 'A'];
+            maxFreq = Math.max(maxFreq, ++freq[ch - 'A']);
+            
+            int changes = (j - i + 1) - maxFreq;
+            
+            if(changes > k) {
+                // we need to shrink our window
+                freq[s.charAt(i) - 'A']--;
                 i++;
             }
+            
+            result = Math.max(result, (j-i+1));
             j++;
-            maxLen = Math.max(maxLen , (j-i));
         }
-        return maxLen;
+        
+        return result;
     }
 }
