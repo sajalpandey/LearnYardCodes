@@ -7,7 +7,7 @@ class Solution {
         double[] arrivalTime = new double[target];
         for(int i=0; i<n; i++) {
             double time = ((double)(target - position[i]) / speed[i]);
-            System.out.println(time);
+            
             arrivalTime[position[i]] =  time;
         }
 
