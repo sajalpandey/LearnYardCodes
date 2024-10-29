@@ -1,11 +1,22 @@
 class Solution {
     public int maxSubArray(int[] nums) {
+        /**
+        Sol - 1
+        Will generate all subarray and find its sum
+        TC : O(n^3)
+        */
+
+        //Sol - 2
+        int n = nums.length;
         int sum = nums[0];
-        int mx_sum = sum;
-        for(int i=1; i<nums.length; i++) {
-            sum = Math.max(sum+nums[i] , nums[i]);
-            mx_sum = Math.max(mx_sum, sum);
+        int max_sum = sum;
+
+        for(int i=1; i<n; i++) {
+
+            sum = Math.max(nums[i] + sum, nums[i]);
+            max_sum = Math.max(sum, max_sum);
         }
-        return mx_sum;
+
+        return max_sum;
     }
 }
