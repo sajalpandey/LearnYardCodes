@@ -1,24 +1,23 @@
 class Solution {
-    HashSet<List<Integer>> set = new HashSet<>();
-    public void subsetsWithDupHelper(List<List<Integer>> result, int[] nums, int i, List<Integer> temp) {
-        if(i >= nums.length) {
-            if(!set.contains(temp)) {
-                set.add(new ArrayList<>(temp));
-            }
-            return;
+    public void subsetsWithDupHelper(List<List<Integer>> result, int[] nums, int index, List<Integer> temp) {
+        // we will simply add , as [] is also part of result
+        result.add(new ArrayList<>(temp));
+
+        //now loop from index to < n and pick every ele
+        //after picking if next ele is equal to previous picked we will move fw
+        for(int i=index; i<nums.length; i++) {
+            //
+            if(i > index && nums[i] == nums[i-1])
+                continue;
+            temp.add(nums[i]);
+            subsetsWithDupHelper(result, nums, i+1, temp);
+            temp.remove(temp.size()-1); 
         }
-        temp.add(nums[i]);
-        subsetsWithDupHelper(result, nums, i+1, temp);
-        temp.remove(temp.size()-1);
-        subsetsWithDupHelper(result, nums, i+1, temp);
     }
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> result = new ArrayList<>();
         subsetsWithDupHelper(result, nums, 0, new ArrayList<>());
-        for(List<Integer> temp : set) {
-            result.add(new ArrayList<>(temp));
-        }
         return result;
     }
 }
