@@ -1,29 +1,24 @@
 class Solution {
-    public int climbStairsHelper(int n, int[] dp) {
+    public int helper(int n) {
         if(n <= 2)
             return n;
-        
+        return (helper(n-1) + helper(n-2));
+    }
+    public int topDownHelper(int n, int[] dp) {
+        if(n <= 2)
+            return n;
         if(dp[n] != -1)
             return dp[n];
-
-        int steps = climbStairsHelper(n-1, dp) + climbStairsHelper(n-2, dp);
-        dp[n] = steps;
-        return dp[n];
+        
+        return dp[n] = topDownHelper(n-1, dp) + topDownHelper(n-2, dp);
     }
     public int climbStairs(int n) {
-        if(n <= 2)
-            return n;
-        //Recursion + memoisation =  TOP DOWN APPRAOCH
+        //1. Recursion|| TC: O(n) || SC:O(n)
+        //return helper(n);
+
+        //2.Memoization(Top Down)
         int[] dp = new int[n+1];
-        // Arrays.fill(dp, -1);
-        // return climbStairsHelper(n, dp);
-
-        //BOTTOM UP APPROACH
-        dp[1] = 1;
-        dp[2] = 2;
-
-        for(int i=3; i<=n; i++)
-            dp[i] = dp[i-1] + dp[i-2];
-        return dp[n];
+        Arrays.fill(dp, -1);
+        return topDownHelper(n, dp);
     }
 }
