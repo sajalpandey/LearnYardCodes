@@ -1,43 +1,47 @@
 class Solution {
-    public int helper(int[] nums, int i, int[] dp) {
-        if(i >= nums.length) {
+    public int robHelper1(int[] nums, int i, int[] dp) {
+        if(i < 0)
             return 0;
-        }
+        if(i == 0)
+            return nums[0];
         if(dp[i] != -1)
             return dp[i];
-
-        //Robber choose to rob this house, then he can rob to next to next house
-        int sum1 = nums[i] + helper(nums, i+2, dp);
         
-        //Robber decided not to rob this house. then he can rob to next house
-        int sum2 = helper(nums, i+1, dp);
-        dp[i] = Math.max(sum1, sum2);
-        return dp[i];
+        int takeit = nums[i] + robHelper1(nums, i-2, dp);
+        int skipit = robHelper1(nums, i-1, dp);
+
+        return dp[i] = Math.max(takeit, skipit);
     }
 
-    public int helper2(int[] nums, int i, int[] dp) {
-        if(i >= nums.length - 1) {
+    public int robHelper2(int[] nums, int i, int[] dp) {
+        if(i < 1)
             return 0;
-        }
+        if(i == 1)
+            return nums[1];
+
         if(dp[i] != -1)
             return dp[i];
-
-        //Robber choose to rob this house, then he can rob to next to next house
-        int sum1 = nums[i] + helper2(nums, i+2, dp);
         
-        //Robber decided not to rob this house. then he can rob to next house
-        int sum2 = helper2(nums, i+1, dp);
-        dp[i] = Math.max(sum1, sum2);
-        return dp[i];
+        int takeit = nums[i] + robHelper2(nums, i-2, dp);
+        int skipit = robHelper2(nums, i-1, dp);
+
+        return dp[i] = Math.max(takeit, skipit);
     }
     public int rob(int[] nums) {
-        if(nums.length == 1)
+        //First and last are adjacent so by removing last ele we will apply previous
+        //logic here from 0 to n-2
+
+        //similarly removing first we apply similar logic from 1 to n-1
+        //Max of both the answers
+        int n = nums.length;
+        if(n == 1)
             return nums[0];
-        int[] dp = new int[nums.length+1];
+        int[] dp = new int[n];
         Arrays.fill(dp, -1);
-        int op1 = helper(nums, 1, dp);
+        int ans1 = robHelper1(nums, n-2, dp);
         Arrays.fill(dp, -1);
-        int op2 = helper2(nums, 0, dp);
-        return Math.max(op1, op2);
+        int ans2 = robHelper2(nums, n-1, dp);
+        System.out.println(ans1+" -- "+ans2);
+        return Math.max(ans1, ans2);
     }
 }
