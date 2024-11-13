@@ -1,37 +1,22 @@
 class Solution {
-    public int helper(int[] nums, int i, int[] dp) {
-        if(i >= nums.length) {
-            return 0;
-        }
-        if(dp[i] != -1)
-            return dp[i];
-
-        //Robber choose to rob this house, then he can rob to next to next house
-        int sum1 = nums[i] + helper(nums, i+2, dp);
-        
-        //Robber decided not to rob this house. then he can rob to next house
-        int sum2 = helper(nums, i+1, dp);
-        dp[i] = Math.max(sum1, sum2);
-        return dp[i];
-    }
     public int rob(int[] nums) {
+        //space optimized bottom up
         int n = nums.length;
-        int[] dp = new int[n+1];
-        Arrays.fill(dp, -1);
+        if(n == 1)
+            return nums[0];
+        int prev1 = nums[0], prev2 = 0, curr = 0;
 
-        //Recursion + memoisation =  TOP DOWN APPRAOCH
-        //return helper(nums,0,dp);
+        for(int i=1; i<n; i++) {
+            int takeit = nums[i];
+            if(i > 1)
+                takeit += prev2;
+            int skipit = prev1;
 
-        //BOTTOM UP APPROACH
-        dp[0] = 0;
-        dp[1] = nums[0];
-        for(int i=2; i<=n; i++) {
-            int val = nums[i-1];
-            dp[i] = Math.max(val + dp[i-2], dp[i-1]);
+            curr = Math.max(takeit, skipit);
+            prev2 = prev1;
+            prev1 = curr;
         }
-        return dp[n];
+        return curr;
+        
     }
-    /**
-    Recursion time complexity os O(2^n) & SC: O(2^n)
-     */
 }
