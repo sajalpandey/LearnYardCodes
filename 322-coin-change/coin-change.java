@@ -36,10 +36,33 @@ class Solution {
         //return coinChangeHelper(coins, amount, n-1, 0);
 
         //2. Top Down
+        // int[][] dp = new int[n][amount+1];
+        // for(int[] row : dp)
+        //     Arrays.fill(row, -1);
+        // int result = coinChangeMemo(coins, amount, n-1, dp);
+        // return result == Integer.MAX_VALUE ? -1 : result;
+
+
+        //3. Bottom Up
         int[][] dp = new int[n][amount+1];
         for(int[] row : dp)
-            Arrays.fill(row, -1);
-        int result = coinChangeMemo(coins, amount, n-1, dp);
-        return result == Integer.MAX_VALUE ? -1 : result;
+            Arrays.fill(row, 0);
+        
+        for(int i=0; i<n; i++) {
+            for(int t = 1; t<=amount; t++) {
+                int count2 = Integer.MAX_VALUE;
+                if(i-1 >= 0)
+                    count2 = dp[i-1][t];
+
+                int count1 = Integer.MAX_VALUE;
+                if(coins[i] <= t)
+                    count1 = dp[i][t-coins[i]];
+                count1 = count1 ==Integer.MAX_VALUE ? count1 : ++count1;
+
+                dp[i][t] = Math.min(count1, count2);
+            }
+        }
+
+        return dp[n-1][amount] == Integer.MAX_VALUE ? -1 : dp[n-1][amount];
     }
 }
