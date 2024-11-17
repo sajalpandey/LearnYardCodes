@@ -32,7 +32,7 @@ class Solution {
     public int coinChange(int[] coins, int amount) {
         //1. Recursion TC: (2^n)
         int n = coins.length;
-        //Arrays.sort(coins);
+        Arrays.sort(coins);
         //return coinChangeHelper(coins, amount, n-1, 0);
 
         //2. Top Down
