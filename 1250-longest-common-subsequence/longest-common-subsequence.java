@@ -1,59 +1,46 @@
 class Solution {
-    public int longestCommonSubsequenceHelper(int i, int j, String text1, String text2) {
+    public int helper(String text1, String text2, int i, int j) {
         if(i >= text1.length() || j >= text2.length())
             return 0;
         
-        if(text1.charAt(i) == text2.charAt(j)) {
-            return (1 + longestCommonSubsequenceHelper(i+1, j+1, text1, text2));
-        } else {
-            return Math.max(longestCommonSubsequenceHelper(i+1, j, text1, text2), longestCommonSubsequenceHelper(i, j+1, text1, text2));
+        //we have 3 options
+        //if both char matches then call recursion with next index
+        //if does'nt match then increse either of i then j
+        int op1 = 0, op2 = 0, op3 = 0;
+        if(text1.charAt(i) == text2.charAt(j))
+            op1 = (1 + helper(text1, text2, i+1, j+1));
+        else {
+            op2 = helper(text1, text2, i+1, j);
+            op3 = helper(text1, text2, i, j+1);
         }
+        return Math.max(op1, Math.max(op2, op3));
     }
 
-    public int longestCommonSubsequenceTopDown(int i, int j, String text1, String text2, int[][]dp) {
-        if(i >= text1.length() || j >= text2.length())
+    public int helperTopDown(String text1, String text2, int i, int j, int[][] dp) {
+        if(i == 0 || j == 0)
             return 0;
+            
         if(dp[i][j] != -1)
             return dp[i][j];
-        if(text1.charAt(i) == text2.charAt(j)) {
-            dp[i][j] = (1 + longestCommonSubsequenceTopDown(i+1, j+1, text1, text2, dp));
+
+        int op1 = 0, op2 = 0, op3 = 0;
+        if(text1.charAt(i-1) == text2.charAt(j-1)) {
+            op1 = 1 + helperTopDown(text1, text2, i-1, j-1, dp);
         } else {
-            dp[i][j] = Math.max(longestCommonSubsequenceTopDown(i+1, j, text1, text2, dp), longestCommonSubsequenceTopDown(i, j+1, text1, text2, dp));
+            op2 = helperTopDown(text1, text2, i-1, j, dp);
+            op3 = helperTopDown(text1, text2, i, j-1, dp);
         }
-        return dp[i][j];
+
+        return dp[i][j] = Math.max(op1, Math.max(op2, op3));
     }
     public int longestCommonSubsequence(String text1, String text2) {
+        // return helper(text1, text2, 0, 0);
 
-        //1. Recursive
-        //return longestCommonSubsequenceHelper(0, 0, text1, text2);
-
-        //2. DP : Top Down
-        int[][] dp = new int[text1.length()+1][text2.length()+1];
-        // for(int[] row : dp)
-        //     Arrays.fill(row, -1);
-        // return longestCommonSubsequenceTopDown(0, 0, text1, text2, dp);
-
-        //3. DP : Bottom Up
-        //Base condition if one of the string is empty
-        for(int i=0; i<=text1.length(); i++)
-            dp[i][0] = 0;
-
-        for(int j=0; j<=text2.length(); j++)
-            dp[0][j] = 0;
-
-        for(int i=1; i<=text1.length(); i++) {
-            for(int j=1; j<=text2.length(); j++) {
-
-                //when char at i & j are equal
-                if(text1.charAt(i-1) == text2.charAt(j-1)) {
-                    dp[i][j] = (1 + dp[i-1][j-1]);
-                } 
-                // else max
-                else {
-                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
-                }
-            }
-        }
-        return dp[text1.length()][text2.length()];
+        int m = text1.length(), n = text2.length();
+        int[][] dp = new int[m+1][n+1];
+        for(int[] row : dp)
+            Arrays.fill(row, -1);
+        
+        return helperTopDown(text1, text2, m, n, dp);
     }
 }
