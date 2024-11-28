@@ -1,35 +1,52 @@
 class Solution {
     public boolean canPartitionHelper(int[] nums, int i, int sum1, int sum2) {
-        if(i == nums.length) {
-            return sum1 == sum2;
+        if(i >= nums.length) {
+            return (sum1 == sum2 ? true : false);
         }
 
-        //Two choices
-        //add current ele to sum1 or add to sum2
-        return (canPartitionHelper(nums, i+1, sum1+nums[i], sum2) || canPartitionHelper(nums, i+1, sum1, sum2+nums[i]));
+        //we have 2 choice for each ele
+        //either to add in sum1 or sum2
+        boolean op1 = canPartitionHelper(nums, i+1, sum1+nums[i], sum2);
+
+        boolean op2 = canPartitionHelper(nums, i+1, sum1, sum2+nums[i]);
+
+        return (op1 || op2);
     }
-    public boolean canPartitionBottomUp(int[] arr, int sum){
-        int N = arr.length;
-        boolean[][] dp = new boolean[N+1][sum + 1];
-        for(int i=0; i<=N; i++)
-            dp[i][0] = true;
-        
-        for(int i=N-1; i>=0; i--) {
-            for(int target = 0; target<=sum; target++) {
-                if(target >= arr[i])
-                    dp[i][target] = dp[i+1][target - arr[i]];
-                dp[i][target] = dp[i][target] || dp[i+1][target];
-            }
+    public int canPartitionTopDown(int[] nums, int i, int target, int[][] dp) {
+        if(target == 0)
+            return 1;
+        if(i >= nums.length) {
+            if(target == 0)
+                return 1;
+            return 0;
         }
-        return dp[0][sum];
+        if(dp[i][target] != -1)
+            return dp[i][target];
+        // we have two options
+        //either do not take this ele in subset
+        // or if target-ele > 0 take it
+        int op1 = canPartitionTopDown(nums, i+1, target, dp);
+        int op2 = 0;
+        if(target-nums[i] >= 0)
+            op2 = canPartitionTopDown(nums, i+1, target-nums[i], dp);
+        return dp[i][target] = (op1 + op2 > 0 ? 1 : 0);
     }
     public boolean canPartition(int[] nums) {
-        int totalSum = 0;
+        int n = nums.length;
+        int sum = 0;
         for(int ele : nums)
-            totalSum += ele;
-        if(totalSum %2 != 0)
+            sum += ele;
+        
+        if(sum % 2 != 0)
             return false;
-        return canPartitionBottomUp(nums, totalSum/2);
         //return canPartitionHelper(nums, 0, 0, 0);
+        /**
+        For dp we can thing like searching a subset of sum/2
+         */
+        int[][] dp = new int[n+1][sum/2+1];
+        for(int[] row : dp)
+            Arrays.fill(row, -1);
+        
+        return canPartitionTopDown(nums, 0, sum/2, dp) == 1 ? true : false;
     }
 }
