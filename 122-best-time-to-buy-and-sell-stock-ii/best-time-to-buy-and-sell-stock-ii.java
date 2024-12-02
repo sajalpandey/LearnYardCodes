@@ -21,8 +21,28 @@ class Solution {
     }
     public int maxProfit(int[] prices) {
         int[][] dp = new int[prices.length+1][2];
-        for(int[] row : dp)
-            Arrays.fill(row, -1);
-        return helper(prices, 0, 1, dp);
+        // for(int[] row : dp)
+        //     Arrays.fill(row, -1);
+        // return helper(prices, 0, 1, dp);
+
+        //Bottom Up
+        // i = n to 0
+        for(int i=prices.length-1; i>=0; i--) {
+            for(int prevBought=0; prevBought<=1; prevBought++) {
+                int profit = 0;
+                if(prevBought == 1) {
+                    int op1 = (-prices[i] + dp[i+1][0]);
+                    int op2 = 0 + dp[i+1][1];
+                    profit = Math.max(op1, op2);
+                } else {
+                    //sell call
+                int op1 = prices[i] + dp[i+1][1];
+                int op2 = 0 + dp[i+1][0];
+                profit = Math.max(op1, op2);
+                }
+                dp[i][prevBought] = profit;
+            }
+        }
+        return dp[0][1];
     }
 }
