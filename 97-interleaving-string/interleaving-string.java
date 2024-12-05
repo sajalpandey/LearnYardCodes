@@ -50,8 +50,26 @@ class Solution {
         so we can avoid using k
          */
         int[][] dp = new int[s1.length()+1][s2.length()+1];
-        for(int[] row : dp)
-            Arrays.fill(row, -1);
-        return helperTopDown(s1,s2, s3, 0, 0, dp) == 1 ? true : false;
+        // for(int[] row : dp)
+        //     Arrays.fill(row, -1);
+        // return helperTopDown(s1,s2, s3, 0, 0, dp) == 1 ? true : false;
+
+        //Bottom up
+        //i o to s1.length
+        //j o to s2.length
+        //base condition
+        dp[s1.length()][s2.length()] = 1;
+        for(int i=s1.length(); i>=0; i--) {
+            for(int j=s2.length(); j>=0; j--) {
+                if (i < s1.length() && s1.charAt(i) == s3.charAt(i + j)) {
+                    dp[i][j] = dp[i][j] | dp[i + 1][j]; // If match, carry forward the state
+                }
+                // Check if s2[j] matches s3[i+j]
+                if (j < s2.length() && s2.charAt(j) == s3.charAt(i + j)) {
+                    dp[i][j] = dp[i][j] | dp[i][j + 1]; // If match, carry forward the state
+                }
+            }
+        }
+        return dp[0][0] == 1;
     }
 }
