@@ -1,23 +1,21 @@
 class Solution {
     public void helper(int open, int close, int n, StringBuilder str, List<String> result) {
-        if(open > n || close > n || close > open)
+        if(close > open)
             return;
-        if(str.length() == 2*n) {
+        if(str.length() == 2 * n) {
             result.add(str.toString());
             return;
         }
-
-        if(open <  n) {
+        if(open < n) {
             str.append('(');
-            helper(open+1, close, n , str , result);
+            helper(open+1, close, n, str, result);
             str.deleteCharAt(str.length()-1);
         }
         if(close <= open) {
             str.append(')');
-            helper(open, close+1, n , str , result);
+            helper(open, close+1, n, str, result);
             str.deleteCharAt(str.length()-1);
-        } 
-        
+        }
         return;
     }
     public List<String> generateParenthesis(int n) {
