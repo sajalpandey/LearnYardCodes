@@ -1,17 +1,17 @@
 class Solution {
-    public int maxArea(int[] height) {
-        int n = height.length;
-        int left = 0, right = n - 1;
-        int result = 0;
-        while(left <  right) {
-            int area = Math.min(height[left], height[right]) * (right - left);
-            result = Math.max(result, area);
-
-            if(height[left] <  height[right])
-                left++;
+    public int maxArea(int[] arr) {
+        // One solution is to check for each pair Yn : O(n^2)
+        int i = 0, j = arr.length - 1;
+        int ans = Integer.MIN_VALUE;
+        while(i < j) {
+            int area = (j - i) * Math.min(arr[i], arr[j]);
+            ans = Math.max(ans, area);
+            if(arr[i] < arr[j])
+                i++;
             else
-                right--;
+                j--;
         }
-        return result;
+        return ans;
+
     }
 }
