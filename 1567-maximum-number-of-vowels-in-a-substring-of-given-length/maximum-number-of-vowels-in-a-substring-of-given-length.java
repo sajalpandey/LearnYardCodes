@@ -1,23 +1,24 @@
 class Solution {
-    private static boolean isVowel(char lowerCaseChar) {
-        // Check if the character is a vowel
-        return lowerCaseChar == 'a' || lowerCaseChar == 'e' || lowerCaseChar == 'i' || lowerCaseChar == 'o' || lowerCaseChar == 'u';
+    public boolean checkVowel(char ch) {
+        return (ch == 'a' || ch == 'i' || ch == 'e' || ch == 'o' || ch == 'u');
     }
     public int maxVowels(String s, int k) {
-        int mx_v = 0;
-        int v = 0;
-        for(int i=0; i<k; i++) 
-            if(isVowel(s.charAt(i)))
-                v++;
-        int i=0, j=k;
-        mx_v = v;
-        while(j<s.length()) {
-            if(isVowel(s.charAt(i++)))
-                v--;
-            if(isVowel(s.charAt(j++)))
-                v++;
-            mx_v = Math.max(mx_v,v);
+        int i = 0;
+        int count = 0, ans = 0;
+        while(i < k) {
+            if(checkVowel(s.charAt(i)))
+                count++;
+            i++;
         }
-        return mx_v;
+        ans = Math.max(count, ans);
+        while(i < s.length()) {
+            if(checkVowel(s.charAt(i-k)))
+                count--;
+            if(checkVowel(s.charAt(i)))
+                count++;
+            ans = Math.max(count, ans);
+            i++;
+        }
+        return ans;
     }
 }
