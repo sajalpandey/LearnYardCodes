@@ -6,12 +6,12 @@ class Solution {
         while(j < s.length()) {
             char ch = s.charAt(j);
             if(!map.containsKey(ch)) {
-                map.put(ch, map.getOrDefault(ch, 0)+1);
+                map.put(ch, 1);
             } else {
                 while(map.containsKey(ch) && i < j) {
                     map.remove(s.charAt(i++));
                 }
-                map.put(ch, map.getOrDefault(ch, 0)+1);
+                map.put(ch, 1);
             }
             j++;
             result = Math.max(result, (j-i));
