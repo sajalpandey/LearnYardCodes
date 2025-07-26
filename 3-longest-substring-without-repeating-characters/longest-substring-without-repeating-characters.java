@@ -1,26 +1,21 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        // First solution is to check for every window that would be (n^3)
-
-        //Optimized would be o(n)
-        if(s.length() == 0)
-            return 0;
-        int i=0, j=0;
-        HashSet<Character> set = new HashSet<>();
-        int maxLen = 0;
+        int i = 0, j = 0;
+        int count = 0, result = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
         while(j < s.length()) {
-            if(!set.contains(s.charAt(j))) {
-                set.add(s.charAt(j));
-                maxLen = Math.max(maxLen, (j-i));
-                j++;
+            char ch = s.charAt(j);
+            if(!map.containsKey(ch)) {
+                map.put(ch, map.getOrDefault(ch, 0)+1);
             } else {
-                while(i < j && set.contains(s.charAt(j))) {
-                    set.remove(s.charAt(i));
-                    i++;
+                while(map.containsKey(ch) && i < j) {
+                    map.remove(s.charAt(i++));
                 }
+                map.put(ch, map.getOrDefault(ch, 0)+1);
             }
+            j++;
+            result = Math.max(result, (j-i));
         }
-
-        return (maxLen+1);
+        return result;
     }
 }
