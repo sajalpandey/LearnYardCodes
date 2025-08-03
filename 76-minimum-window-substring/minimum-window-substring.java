@@ -15,7 +15,6 @@ class Solution {
                 count--;
             }
             freq[ch]--;
-            System.out.println("minLen = "+minLen+" count = "+count);
             if(count == 0) {
                 //found all character of t in s, time to shrink the window
                 while(count == 0) {
