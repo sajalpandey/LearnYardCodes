@@ -30,8 +30,9 @@ class Solution {
 
         }
 
-        ListNode result = dummy.next;
-        dummy.next = null;
-        return result;
+        return dummy.next;
+        // ListNode result = dummy.next;
+        // dummy.next = null;
+        // return result;
     }
 }
